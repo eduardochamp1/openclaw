@@ -19,7 +19,11 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 
 # Load environment variables
-load_dotenv()
+# Load environment variables
+env_path = Path(__file__).parent / ".env"
+load_dotenv(dotenv_path=env_path)
+print(f"Loading env from {env_path}")
+print(f"GROQ_API_KEY present: {'GROQ_API_KEY' in os.environ}")
 
 # Add project root to path
 import sys
