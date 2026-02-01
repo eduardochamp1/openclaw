@@ -1,0 +1,76 @@
+# OpenClaw Agent Configuration
+# =============================
+
+agent:
+  name: "OpenClaw"
+  version: "1.0.0"
+  max_iterations: 15
+  thinking_enabled: true
+  verbose: true
+
+# LLM Providers Configuration
+providers:
+  default: "groq"  # groq (free) | claude | gemini
+  
+  groq:
+    model: "llama-3.3-70b-versatile"
+    max_tokens: 2048
+    temperature: 0.7
+    # API key from environment: GROQ_API_KEY
+    # Free tier: ~6000 requests/day
+    # Models: llama3-70b-8192, llama3-8b-8192, mixtral-8x7b-32768
+  
+  claude:
+    model: "claude-sonnet-4-20250514"
+    max_tokens: 8192
+    temperature: 0.7
+    # API key from environment: ANTHROPIC_API_KEY
+  
+  gemini:
+    model: "gemini-2.0-flash"
+    max_tokens: 8192
+    temperature: 0.7
+    # API key from environment: GOOGLE_API_KEY
+
+# Tools Configuration
+tools:
+  web_search:
+    enabled: true
+    max_results: 10
+    provider: "duckduckgo"  # duckduckgo | serper | tavily
+  
+  file_manager:
+    enabled: true
+    workspace: "./workspace"
+    allowed_extensions:
+      - ".txt"
+      - ".md"
+      - ".json"
+      - ".yaml"
+      - ".py"
+      - ".js"
+      - ".html"
+      - ".css"
+    max_file_size_mb: 10
+  
+  code_executor:
+    enabled: true
+    timeout: 30
+    allow_imports: true
+  
+  self_evolution:
+    enabled: false
+    require_approval: false  # Set to true for human-in-the-loop
+
+# Memory Configuration
+memory:
+  enabled: true
+  type: "json"  # json | sqlite | redis
+  persist_path: "./data/memory.json"
+  max_context_messages: 20
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG | INFO | WARNING | ERROR
+  file: "./logs/openclaw.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
